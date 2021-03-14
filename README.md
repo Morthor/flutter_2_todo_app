@@ -13,6 +13,10 @@ This project is an updated version of the Todo App I've done in the past. The ne
 
 This also means I will be making a new video for this app.
 
+----------------------------------------------------------
+
+_This app has been tested on Android, iOS, Web, MacOS, and Windows._
+
 ## Getting Started with Flutter
 
 A few resources to get you started if this is your first Flutter project:
