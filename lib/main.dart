@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
 }
 
 class Home extends StatelessWidget {
-  final GlobalKey<_ItemListWidgetState> itemKey = GlobalKey<_ItemListWidgetState>();
+  final GlobalKey<ItemListWidgetState> itemKey = GlobalKey<ItemListWidgetState>();
 
   @override
   Widget build(BuildContext context) {
@@ -66,10 +66,10 @@ class ItemListWidget extends StatefulWidget {
   ItemListWidget(this.itemKey) : super(key: itemKey);
 
   @override
-  _ItemListWidgetState createState() => _ItemListWidgetState();
+  ItemListWidgetState createState() => ItemListWidgetState();
 }
 
-class _ItemListWidgetState extends State<ItemListWidget> {
+class ItemListWidgetState extends State<ItemListWidget> {
   List<Todo> items = List<Todo>.empty(growable: true);
 
   @override
@@ -81,7 +81,7 @@ class _ItemListWidgetState extends State<ItemListWidget> {
           key: Key(items[index].hashCode.toString()),
           child: ItemWidget(
             item: items[index],
-            setItemCompleteness: updateItemCompleteness
+            changeTodoCompleteness: changeTodoCompleteness
           ),
           direction: DismissDirection.horizontal,
           confirmDismiss: (direction) => dismissItem(direction, items[index]),
@@ -111,7 +111,7 @@ class _ItemListWidgetState extends State<ItemListWidget> {
       return ItemView();
     })).then((description) {
       setState(() {
-        addItem(description);
+        addItem(Todo(description));
       });
     });
   }
@@ -136,18 +136,26 @@ class _ItemListWidgetState extends State<ItemListWidget> {
     }
   }
 
-  // Operations
-
-  void addItem(String description){
+  void addTodoToList(String description){
     if(description != null && description.isNotEmpty){
-      items.insert(0, Todo(description));
+      addItem(Todo(description));
     }
   }
 
-  void updateItemCompleteness(Todo item){
+  void changeTodoCompleteness(Todo item){
     setState(() {
-      item.complete = !item.complete;
+      updateItemCompleteness(item);
     });
+  }
+
+  // Operations
+
+  void addItem(Todo todo){
+    items.insert(0, todo);
+  }
+
+  void updateItemCompleteness(Todo item){
+    item.complete = !item.complete;
   }
 
   void updateItemDescription(Todo item, String description){
@@ -163,11 +171,11 @@ class _ItemListWidgetState extends State<ItemListWidget> {
 
 class ItemWidget extends StatelessWidget {
   final Todo item;
-  final Function(Todo) setItemCompleteness;
+  final Function(Todo) changeTodoCompleteness;
 
   ItemWidget({
     @required this.item,
-    @required this.setItemCompleteness
+    @required this.changeTodoCompleteness
   });
 
   @override
@@ -179,7 +187,7 @@ class ItemWidget extends StatelessWidget {
         ),
       ),
       value: item.complete,
-      onChanged: (_) => setItemCompleteness(item),
+      onChanged: (_) => changeTodoCompleteness(item),
     );
   }
 }
@@ -188,12 +196,23 @@ class EmptyList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text('NO ITEMS',
-        style: TextStyle(
-          fontWeight: FontWeight.w600,
-          letterSpacing: 1,
-          fontSize: 16
-        ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 1.0),
+            child: Icon(Icons.airline_seat_flat, color: Colors.blue,),
+          ),
+          SizedBox(width: 10,),
+          Text('NO ITEMS',
+            style: TextStyle(
+              fontWeight: FontWeight.w600,
+              letterSpacing: 1,
+              fontSize: 16
+            ),
+          ),
+        ],
       ),
     );
   }

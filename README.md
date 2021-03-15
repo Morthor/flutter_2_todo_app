@@ -11,6 +11,14 @@ This project is an updated version of the Todo App I've done in the past. The ne
 - Using Google's MontSerrat font for a nicer UI.
 - Less shocking choice of colors.
 
+##  Tests
+- Unit tests for Operations
+  - Run `flutter test test/unit_test.dart`
+- Widget tests for Views and UI Widgets
+  - Run `flutter test test/widget_test.dart`
+- Integration tests for all Actions
+  - Run `flutter drive  --driver=test_driver/integration_test.dart --target=integration_test/app_test.dart`
+
 This also means I will be making a new video for this app.
 
 ----------------------------------------------------------

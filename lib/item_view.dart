@@ -8,10 +8,10 @@ class ItemView extends StatefulWidget {
   ItemView({this.item});
 
   @override
-  _ItemViewState createState() => _ItemViewState();
+  ItemViewState createState() => ItemViewState();
 }
 
-class _ItemViewState extends State<ItemView> {
+class ItemViewState extends State<ItemView> {
   TextEditingController _textEditingController;
 
   @override
