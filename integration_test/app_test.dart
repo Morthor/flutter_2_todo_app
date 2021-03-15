@@ -47,7 +47,7 @@ void main() {
     expect(find.text(description), findsNothing);
   });
 
-  testWidgets("Add and Edit a todo\' description", (WidgetTester tester) async {
+  testWidgets("Add and Edit a todo's description", (WidgetTester tester) async {
     app.main();
     String description = 'Todo to remove';
     await tester.pumpAndSettle();
@@ -76,7 +76,7 @@ void main() {
     expect(find.text(editedText), findsOneWidget);
   });
 
-  testWidgets("Add a todo and Change it\'s completeness", (WidgetTester tester) async {
+  testWidgets("Add a todo and Change it's completeness", (WidgetTester tester) async {
     app.main();
     String description = 'Todo to set as complete';
     await tester.pumpAndSettle();
